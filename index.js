@@ -2,7 +2,7 @@
 
 function runScript(scriptName) {
     // Replace this URL with the actual URL of your Raspberry Pi
-    var apiUrl = `https://192.168.0.16:5000/${scriptName}`;
+    var apiUrl = `https://bennettolsen.us:5000/${scriptName}`;
 
     // Send a GET request to the API endpoint
     fetch(apiUrl)
