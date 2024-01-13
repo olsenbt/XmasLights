@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
   
   function runScript(scriptName) {
     // Update the apiUrl with the new API endpoint and IP address
-    var apiUrl = `https://api.bennettolsen.us:5000/${scriptName}`;
+    var apiUrl = `https://bennettolsen.us:5000/${scriptName}`;
   
     // Send a GET request to the updated API endpoint
     fetch(apiUrl)
