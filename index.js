@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
   
   function runScript(scriptName) {
     // Update the apiUrl with the new API endpoint and IP address
-    var apiUrl = `http://api.bennettolsen.us:5000/${scriptName}`;
+    var apiUrl = `https://api.bennettolsen.us:5000/${scriptName}`;
   
     // Send a GET request to the updated API endpoint
     fetch(apiUrl)
@@ -48,7 +48,7 @@ window.addEventListener('load', function() {
   
   // Service Worker Registration
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('XmasLights/sw.js')
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope);
       })
