@@ -8,10 +8,10 @@ window.addEventListener('load', function() {
   });
   
   function runScript(scriptName) {
-    // Replace this URL with the actual URL of your Raspberry Pi
-    var apiUrl = `https://bennettolsen.us:5000/${scriptName}`;
+    // Update the apiUrl with the new API endpoint and IP address
+    var apiUrl = `http://api.bennettolsen.us:5000/${scriptName}`;
   
-    // Send a GET request to the API endpoint
+    // Send a GET request to the updated API endpoint
     fetch(apiUrl)
       .then(response => {
         if (!response.ok) {
