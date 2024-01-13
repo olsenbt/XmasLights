@@ -21,7 +21,6 @@ window.addEventListener('load', function() {
       })
       .then(result => {
         console.log(result);
-        //alert(`${scriptName} script executed successfully!`);
       })
       .catch(error => {
         console.error(error);
