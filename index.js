@@ -48,7 +48,7 @@ window.addEventListener('load', function() {
   
   // Service Worker Registration
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('XmasLights/sw.js')
+    navigator.serviceWorker.register('/XmasLights/sw.js') // Updated path
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope);
       })
