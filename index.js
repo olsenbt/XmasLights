@@ -1,4 +1,13 @@
 // script.js
+window.addEventListener('load', function() {
+   // Set a timeout to ensure the page is fully loaded
+   setTimeout(function() {
+     // Hide the address bar
+     window.scrollTo(0, 1);
+    }, 0);
+});
+
+
 
 function runScript(scriptName) {
     // Replace this URL with the actual URL of your Raspberry Pi
