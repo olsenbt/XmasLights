@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,17 +11,39 @@
     <link rel="manifest" href="manifest.json">
 
     <title>Xmas Light Controller</title>
-    <!-- Link the index.js file -->
+
+    <!-- JS and CSS -->
     <script src="index.js"></script>
-    <!-- Link the styles.css file -->
     <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <!-- Color Wheel -->
+    <script src="iro.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/iro.js@4.0.2/css/iro.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/iro.js@4.0.2/js/iro.min.js"></script>
 </head>
+
 <body>
     <h1>Script Execution Buttons</h1>
 
-    <button onclick="runScript('redgreen')" id="redgreenButton">Run Red Green Script</button>
-    <button onclick="runScript('rainbow')" id="rainbowButton">Run Rainbow Script</button>
-    <button onclick="runScript('stop')" id="stopButton">Run Stop Script</button>
+    <div id="navigation">
+        <button data-page="buttonsPage">Buttons Tab</button>
+        <button data-page="colorSelectorPage">Color Selector</button>
+    </div>
 
+    <div id="buttonsPage">
+        <button onclick="runScript('redgreen')" id="redgreenButton">Run Red Green Script</button>
+        <button onclick="runScript('rainbow')" id="rainbowButton">Run Rainbow Script</button>
+        <button onclick="runScript('stop')" id="stopButton">Run Stop Script</button>
+    </div>
+
+    <div id="colorSelectorPage">
+        <div id="colorControls">
+            <div id="colorWheel"></div>
+            <div id="darknessSlider"></div>
+        </div>
+        <input type="text" id="colorPicker" readonly />
+    </div>
+    
 </body>
+
 </html>
