@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Check if the user is authenticated, if not, show the login page
+  if (!isAuthenticated()) {
+    showLoginPage();
+    return;
+  }
+
   showPage('buttonsPage'); // Show the buttons page by default
 
   // Add event listeners to navigation buttons
@@ -59,6 +65,12 @@ function showPage(pageId) {
 
 // Function to run a script
 function runScript(scriptName) {
+  // Check if the user is authenticated before making API calls
+  if (!isAuthenticated()) {
+    showLoginPage();
+    return;
+  }
+
   // Update the apiUrl with the new API endpoint and IP address
   var apiUrl = `https://bennettolsen.us:5000/${scriptName}`;
 
@@ -94,4 +106,21 @@ function toggleSelected(scriptName) {
   // Add the "selected" class to the clicked button
   var clickedButton = document.getElementById(`${scriptName}Button`);
   clickedButton.classList.add('selected');
+}
+
+function isAuthenticated() {
+  // Check if the user is authenticated (you can implement your logic here)
+  // For example, you can use localStorage or sessionStorage to store authentication status
+  return localStorage.getItem('authenticated') === 'true';
+}
+
+function showLoginPage() {
+  // Show the login page and hide other content
+  var pages = document.querySelectorAll('[id$="Page"]');
+  pages.forEach(function(page) {
+      page.style.display = 'none';
+  });
+
+  var loginPage = document.getElementById('loginPage');
+  loginPage.style.display = 'block';
 }
