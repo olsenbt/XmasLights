@@ -44,35 +44,46 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Event listener for color changes
+  var debouncedSetLights = debounce(setLights, 300); // Adjust delay as needed
+
   colorPicker.on('color:change', function (color) {
     // Update the input field with the selected color in HEX format
     document.getElementById('colorPicker').value = color.hexString;
     // Make an API call to set the lights
-    setLights(color.rgb.r, color.rgb.g, color.rgb.b);
+    debouncedSetLights(color.rgb.r, color.rgb.g, color.rgb.b);
   });
 
   function setLights(r, g, b) {
-    // Make the API call to set the lights to the specified color
-    fetch('/set_lights', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('password'), // Include the authorization header
-      },
-      body: JSON.stringify({ r, g, b }),
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(result => {
-      console.log(result); // Log the server response
-    })
-    .catch(error => {
-      console.error(`Error setting lights: ${error.message}`);
-    });
+    // Update the apiUrl with the new API endpoint and IP address
+    var apiUrl = `https://bennettolsen.us:5000/set_lights?password=${localStorage.getItem('password')}&r=${r}&g=${g}&b=${b}`;
+
+    // Send a GET request to the updated API endpoint
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
+        console.error(error);
+        alert(`Error executing Set Lights script: ${error.message}`);
+      });
+  }
+
+  function debounce(func, delay) {
+    let timeout;
+    return function () {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(function () {
+        func.apply(context, args);
+      }, delay);
+    };
   }
 
   // Event listener for darkness slider changes
