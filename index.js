@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize the iro.js color picker with color wheel and darkness slider
   var colorPicker = new iro.ColorPicker('#colorControls', {
-    width: 200,
+    width: 300,
     borderWidth: 1,
     borderColor: '#fff',
     layout: [{

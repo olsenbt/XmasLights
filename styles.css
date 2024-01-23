@@ -44,7 +44,19 @@ button.selected {
     height: 100vh; /* Set to full viewport height */
 }
 
-#colorControls {
-    margin-bottom: 20px; /* Optional: Add some margin between color picker and input */
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
 }
 
+#colorControls {
+    /*max-width: 4000px; /* You can adjust the max-width as needed */
+}
+
+#colorWheel,
+#darknessSlider {
+    width: 100%; /* Make the color wheel and slider take up the full width */
+}
