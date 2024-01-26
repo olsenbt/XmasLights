@@ -1,62 +1,80 @@
-/* styles.css */
+#navbar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: centter;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    background-color: #ABABAB;
+}
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+.nav-item {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align:center;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top:10px;
+}
+
+.nav-item i {
+    margin-bottom: 0px;
+    font-size: 40px;
+}
+
+
+/* Disable scrolling*/
+html, body {
+    overflow: hidden;
     margin: 0;
-    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
     text-align: center;
 }
 
-h1 {
-    color: #333;
+.nav-item.active {
+   color:white;
+
 }
 
-button {
-    font-size: 16px;
-    padding: 10px 20px;
+#loginPage h1{
+    padding-top:20px;
+    padding-bottom:10px;
+}
+
+#buttonsPage {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#buttonsPage button {
     margin: 10px;
-    cursor: pointer;
-    background-color: #4CAF50;
+    padding: 15px 20px;
+    background-color: #4CAF50; /* Green background color */
     color: white;
     border: none;
     border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    flex-basis: 30%
 }
 
-button:hover {
-    background-color: #45a049;
+#buttonsPage button:hover {
+    background-color: #45a049; /* Darker green on hover */
 }
 
-/* Style for selected button */
-button.selected {
-    background-color: #008CBA;
-}
-
-#navigation {
-    margin-top: 20px;
-}
-
-#colorSelectorPage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Set to full viewport height */
-}
-
-.centered {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    text-align: center;
-}
-
-#colorControls {
-    /*max-width: 4000px; /* You can adjust the max-width as needed */
-}
-
-#colorWheel,
-#darknessSlider {
-    width: 100%; /* Make the color wheel and slider take up the full width */
+#powerButton {
+    margin: auto;
+    font-size: 40px;
+    cursor: pointer;
+    margin-bottom: 20px;
 }

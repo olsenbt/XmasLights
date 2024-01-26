@@ -20,28 +20,27 @@
     <script src="iro.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/iro.js@4.0.2/css/iro.min.css">
     <script src="https://cdn.jsdelivr.net/npm/iro.js@4.0.2/js/iro.min.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/b8f2621224.js" crossorigin="anonymous"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h1>Xmas Lights Controller</h1>
-    <div id="navigation">
-        <button data-page="buttonsPage">Buttons Tab</button>
-        <button data-page="colorSelectorPage">Color Selector</button>
+    <div id="powerButton" class="center" onclick="runScript('stop')">
+        <i class="fas fa-power-off"></i>
     </div>
-
     <div id="loginPage">
-        <h1>Login</h1>
-        <form id="login-form">
+        <h1 class="center">Login</h1>
+        <form id="login-form" class="center">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
             <button type="submit">Submit</button>
         </form>
-    </div>
-
-    <div id="buttonsPage">
-        <button onclick="runScript('redgreen')" id="redgreenButton">Run Red Green Script</button>
-        <button onclick="runScript('rainbow')" id="rainbowButton">Run Rainbow Script</button>
-        <button onclick="runScript('stop')" id="stopButton">Run Stop Script</button>
     </div>
 
     <div id="colorSelectorPage">
@@ -52,6 +51,28 @@
             <input type="text" id="colorPicker" readonly="" oninput="updateLights()" />
     </div>
 
+    <div id="buttonsPage">
+        <button onclick="runScript('redgreen')" id="redgreenButton">Run Red Green Script</button>
+        <button onclick="runScript('rainbow')" id="rainbowButton">Run Rainbow Script</button>
+    </div>
+
+    <div id="pokemonPage">
+    </div>
+
+    <div id="navbar">
+        <div class="nav-item" data-page="buttonsPage">
+            <i class="fas fa-cogs"></i>
+            <p>Buttons Tab</p>
+        </div>
+        <div class="nav-item" data-page="colorSelectorPage">
+            <i class="fas fa-paint-brush"></i>
+            <p>Color Selector</p>
+        </div>
+        <div class="nav-item" data-page="pokemonPage">
+            <i class="fas fa-ghost"></i>
+            <p>Pokemon</p>
+        </div>
+    </div>
 </body>
 
 </html>

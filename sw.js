@@ -1,5 +1,5 @@
 // sw.js
-self.addEventListener('install', (event) => {
+/*self.addEventListener('install', (event) => {
     event.waitUntil(
       caches.open('your-app-cache').then((cache) => {
         return cache.addAll([
@@ -21,5 +21,5 @@ self.addEventListener('install', (event) => {
         return response || fetch(event.request);
       })
     );
-  });
+  });*/
   

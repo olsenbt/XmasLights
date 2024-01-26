@@ -1,10 +1,9 @@
+let currentPage = null;
+let debouncedSetLights = debounce(setLights, 300); // Adjust delay as needed
+
 document.addEventListener('DOMContentLoaded', function () {
-  // Check if user has saved password
-  if (localStorage.getItem('password') == null) {
-    showLoginPage();
-  } else {
-    showPage('buttonsPage');
-  }
+  currentPage = localStorage.getItem('password') ? document.getElementById('buttonsPage') : document.getElementById('loginPage');
+  showPage(currentPage.id);
 
   // Add event listener to login form
   var loginForm = document.getElementById('login-form');
@@ -12,18 +11,25 @@ document.addEventListener('DOMContentLoaded', function () {
     event.preventDefault();
     var password = document.getElementById('password').value;
     localStorage.setItem('password', password);
-    //
     showPage('buttonsPage');
   });
 
   // Add event listeners to navigation buttons
-  var buttons = document.querySelectorAll('#navigation button');
+  var buttons = document.querySelectorAll('.nav-item');
   buttons.forEach(function (button) {
     button.addEventListener('click', function () {
-      var pageId = this.getAttribute('data-page');
-      showPage(pageId);
+        // Reset color for all buttons
+        buttons.forEach(function (otherButton) {
+            otherButton.classList.remove('active');
+        });
+
+        // Set the clicked button to active
+        this.classList.add('active');
+
+        var pageId = this.getAttribute('data-page');
+        showPage(pageId);
     });
-  });
+});
 
   // Initialize the iro.js color picker with color wheel and darkness slider
   var colorPicker = new iro.ColorPicker('#colorControls', {
@@ -44,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Event listener for color changes
-  var debouncedSetLights = debounce(setLights, 300); // Adjust delay as needed
+
 
   colorPicker.on('color:change', function (color) {
     // Update the input field with the selected color in HEX format
@@ -52,39 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Make an API call to set the lights
     debouncedSetLights(color.rgb.r, color.rgb.g, color.rgb.b);
   });
-
-  function setLights(r, g, b) {
-    // Update the apiUrl with the new API endpoint and IP address
-    var apiUrl = `https://bennettolsen.us:5000/set_lights?password=${localStorage.getItem('password')}&r=${r}&g=${g}&b=${b}`;
-
-    // Send a GET request to the updated API endpoint
-    fetch(apiUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        return response.text();
-      })
-      .then(result => {
-        console.log(result);
-      })
-      .catch(error => {
-        console.error(error);
-        alert(`Error executing Set Lights script: ${error.message}`);
-      });
-  }
-
-  function debounce(func, delay) {
-    let timeout;
-    return function () {
-      const context = this;
-      const args = arguments;
-      clearTimeout(timeout);
-      timeout = setTimeout(function () {
-        func.apply(context, args);
-      }, delay);
-    };
-  }
 
   // Event listener for darkness slider changes
   colorPicker.on('input:change', function (color) {
@@ -97,28 +70,55 @@ document.addEventListener('DOMContentLoaded', function () {
       }); // Set the brightness value
     }
   });
+
+  // Show login page if password is not stored
+  if (localStorage.getItem('password') == null) {
+    showLoginPage();
+  }
 });
 
+function setLights(r, g, b) {
+  // Update the apiUrl with the new API endpoint and IP address
+  var apiUrl = `https://bennettolsen.us:5000/set_lights?password=${localStorage.getItem('password')}&r=${r}&g=${g}&b=${b}`;
+
+  // Send a GET request to the updated API endpoint
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(result => {
+      console.log(result);
+    })
+    .catch(error => {
+      console.error(error);
+      alert(`Error executing Set Lights script: ${error.message}`);
+    });
+}
+
+function debounce(func, delay) {
+  let timeout;
+  return function () {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      func.apply(context, args);
+    }, delay);
+  };
+}
+
 function showPage(pageId) {
-  console.log("showing page:" + pageId);
-  document.getElementById('navigation').style.display = 'block';
   var pages = document.querySelectorAll('[id$="Page"]');
+  
   pages.forEach(function (page) {
-    page.style.display = 'none';
+      page.style.display = (page.id === pageId) ? 'flex' : 'none';
   });
 
-  // Update selected page
-  var selectedPage = document.getElementById(pageId);
-  selectedPage.style.display = 'block';
-
-  // Update the selected class for navigation buttons
-  var buttons = document.querySelectorAll('#navigation button');
-  buttons.forEach(function (button) {
-    button.classList.remove('selected');
-    if (button.getAttribute('data-page') === pageId) {
-      button.classList.add('selected');
-    }
-  });
+  var navbar = document.getElementById('navbar');
+  navbar.style.display = (pageId === 'loginPage') ? 'none' : 'flex';
 }
 
 function runScript(scriptName) {
@@ -144,10 +144,10 @@ function runScript(scriptName) {
 
 function showLoginPage() {
   // Show the login page and hide other content
-  document.getElementById('navigation').style.display = 'none';
+  document.getElementById('navbar').style.display = 'none';
   var pages = document.querySelectorAll('[id$="Page"]');
   pages.forEach(function (page) {
-    page.style.display = 'none';
+      page.style.display = 'none';
   });
 
   var loginPage = document.getElementById('loginPage');
