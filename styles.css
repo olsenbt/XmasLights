@@ -28,7 +28,6 @@
 
 /* Disable scrolling*/
 html, body {
-    overflow: hidden;
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
@@ -77,4 +76,47 @@ html, body {
     font-size: 40px;
     cursor: pointer;
     margin-bottom: 20px;
+}
+
+
+/*From Pokemon App*/
+#pokedex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.color {
+    padding: 50px;
+    width: 20%;
+    border-color:#333;
+    border-style: solid;
+}
+
+.card:hover {
+    background-color: yellow;
 }

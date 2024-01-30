@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
     showPage('buttonsPage');
   });
 
+  // Load Pokemon Page
+  loadPokemonSprites();
+
   // Add event listeners to navigation buttons
   var buttons = document.querySelectorAll('.nav-item');
   buttons.forEach(function (button) {
@@ -152,4 +155,81 @@ function showLoginPage() {
 
   var loginPage = document.getElementById('loginPage');
   loginPage.style.display = 'block';
+}
+
+
+
+/////// Pokemon Code
+
+// Function to fetch Pokémon data
+async function getPokemonData(pokemonId) {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+  const data = await response.json();
+  return data;
+}
+
+// Function to load Pokémon sprites on the website
+async function loadPokemonSprites() {
+  const totalPokemon = 1025; // You can change this to the total number of Pokémon
+  const pokedex = document.getElementById("pokedex");
+
+  const promises = [];
+
+  for (let i = 1; i <= totalPokemon; i++) {
+      promises.push(getPokemonData(i));
+  }
+
+  try {
+      const pokemon = await Promise.all(promises);
+
+      // Once all promises are resolved, update the DOM
+      pokemon.forEach((pokemon, i) => {
+          let pokedexEntry = genPokedexEntry(pokemon);
+          pokedexEntry.addEventListener('click', () => handlePokemonClick(pokemon.id));
+          pokedex.appendChild(pokedexEntry);
+      });
+  } catch (error) {
+      console.error('Error fetching Pokémon data:', error);
+  }
+}
+
+function genPokedexEntry(pokemon) {
+  let pokedexEntry = document.createElement('div');
+  pokedexEntry.classList.add("card");
+  let pokemonImg = document.createElement('img');
+  pokemonImg.src = pokemon.sprites.front_default;
+  let pokemonName = document.createElement('p');
+  pokemonName.innerHTML = capitalizeFirstLetter(pokemon.name);
+
+
+  pokedexEntry.appendChild(pokemonImg);
+  pokedexEntry.appendChild(pokemonName);
+  return pokedexEntry;
+}
+
+function capitalizeFirstLetter(string) {
+  return string.replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function handlePokemonClick(id) {
+  // Read the color information from the pokemonColors.json file
+  fetch('pokemonColors.json')
+      .then(response => response.json())
+      .then(pokemonColors => {
+          // Get the color information for the clicked Pokémon ID
+          const colors = pokemonColors[id];
+
+          // Set the background colors of divs color1, color2, and color3
+          let div  = document.getElementById("color1");
+          div.style.backgroundColor = colors[0];
+
+          div  = document.getElementById("color2");
+          div.style.backgroundColor = colors[1];
+
+          div  = document.getElementById("color3");
+          div.style.backgroundColor = colors[2];
+      })
+      .catch(error => {
+          console.error('Error reading pokemonColors.json:', error);
+      });
 }
