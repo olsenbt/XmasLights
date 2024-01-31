@@ -21,18 +21,18 @@ document.addEventListener('DOMContentLoaded', function () {
   var buttons = document.querySelectorAll('.nav-item');
   buttons.forEach(function (button) {
     button.addEventListener('click', function () {
-        // Reset color for all buttons
-        buttons.forEach(function (otherButton) {
-            otherButton.classList.remove('active');
-        });
+      // Reset color for all buttons
+      buttons.forEach(function (otherButton) {
+        otherButton.classList.remove('active');
+      });
 
-        // Set the clicked button to active
-        this.classList.add('active');
+      // Set the clicked button to active
+      this.classList.add('active');
 
-        var pageId = this.getAttribute('data-page');
-        showPage(pageId);
+      var pageId = this.getAttribute('data-page');
+      showPage(pageId);
     });
-});
+  });
 
   // Initialize the iro.js color picker with color wheel and darkness slider
   var colorPicker = new iro.ColorPicker('#colorControls', {
@@ -115,9 +115,9 @@ function debounce(func, delay) {
 
 function showPage(pageId) {
   var pages = document.querySelectorAll('[id$="Page"]');
-  
+
   pages.forEach(function (page) {
-      page.style.display = (page.id === pageId) ? 'flex' : 'none';
+    page.style.display = (page.id === pageId) ? 'flex' : 'none';
   });
 
   var navbar = document.getElementById('navbar');
@@ -150,7 +150,7 @@ function showLoginPage() {
   document.getElementById('navbar').style.display = 'none';
   var pages = document.querySelectorAll('[id$="Page"]');
   pages.forEach(function (page) {
-      page.style.display = 'none';
+    page.style.display = 'none';
   });
 
   var loginPage = document.getElementById('loginPage');
@@ -176,20 +176,20 @@ async function loadPokemonSprites() {
   const promises = [];
 
   for (let i = 1; i <= totalPokemon; i++) {
-      promises.push(getPokemonData(i));
+    promises.push(getPokemonData(i));
   }
 
   try {
-      const pokemon = await Promise.all(promises);
+    const pokemon = await Promise.all(promises);
 
-      // Once all promises are resolved, update the DOM
-      pokemon.forEach((pokemon, i) => {
-          let pokedexEntry = genPokedexEntry(pokemon);
-          pokedexEntry.addEventListener('click', () => handlePokemonClick(pokemon.id));
-          pokedex.appendChild(pokedexEntry);
-      });
+    // Once all promises are resolved, update the DOM
+    pokemon.forEach((pokemon, i) => {
+      let pokedexEntry = genPokedexEntry(pokemon);
+      pokedexEntry.addEventListener('click', () => handlePokemonClick(pokemon.id));
+      pokedex.appendChild(pokedexEntry);
+    });
   } catch (error) {
-      console.error('Error fetching Pokémon data:', error);
+    console.error('Error fetching Pokémon data:', error);
   }
 }
 
@@ -214,22 +214,38 @@ function capitalizeFirstLetter(string) {
 function handlePokemonClick(id) {
   // Read the color information from the pokemonColors.json file
   fetch('pokemonColors.json')
-      .then(response => response.json())
-      .then(pokemonColors => {
-          // Get the color information for the clicked Pokémon ID
-          const colors = pokemonColors[id];
+    .then(response => response.json())
+    .then(pokemonColors => {
+      // Get the color information for the clicked Pokémon ID
+      const colors = pokemonColors[id].map(color => color.replace('#', ''));
 
-          // Set the background colors of divs color1, color2, and color3
-          let div  = document.getElementById("color1");
-          div.style.backgroundColor = colors[0];
+      const apiUrl = `https://bennettolsen.us:5000/set_colors?password=candycane72&color1=${colors[0]}&color2=${colors[1]}&color3=${colors[2]}`;
+      console.log(apiUrl);
+      fetch(apiUrl)
+        .then(apiResponse => {
+          if (!apiResponse.ok) {
+            throw new Error(`API request failed with status: ${apiResponse.status}`);
+          }
+          return apiResponse.text();
+        })
+        .then(responseText => {
+          console.log(responseText); // Log the response from the server
+        })
+        .catch(error => {
+          console.error('Error making API request:', error);
+        });
 
-          div  = document.getElementById("color2");
-          div.style.backgroundColor = colors[1];
+      // Set the background colors of divs color1, color2, and color3
+      let div = document.getElementById("color1");
+      div.style.backgroundColor = "#" + colors[0];
 
-          div  = document.getElementById("color3");
-          div.style.backgroundColor = colors[2];
-      })
-      .catch(error => {
-          console.error('Error reading pokemonColors.json:', error);
-      });
+      div = document.getElementById("color2");
+      div.style.backgroundColor = "#" + colors[1];
+
+      div = document.getElementById("color3");
+      div.style.backgroundColor = "#" + colors[2];
+    })
+    .catch(error => {
+      console.error('Error reading pokemonColors.json:', error);
+    });
 }
