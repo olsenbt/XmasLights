@@ -1,12 +1,20 @@
 #navbar {
+    bottom: 0px;
+}
+
+#navbar, #topNav {
+    position: fixed;
+    width: 100%;
+    background-color: #ABABAB;
+    z-index: 1000;
     display: flex;
     flex-flow: row nowrap;
     justify-content: centter;
     align-items: center;
-    position: fixed;
-    width: 100%;
-    bottom: 0px;
-    background-color: #ABABAB;
+}
+
+#topNav {
+    top: 0px;
 }
 
 .nav-item {
@@ -20,18 +28,24 @@
     padding-top:10px;
 }
 
-.nav-item i {
+.nav-item i, .nav-item img {
     margin-bottom: 0px;
     font-size: 40px;
 }
 
+.nav-item img {
+    width: 40px;
+}
+
 
 /* Disable scrolling*/
-html, body {
-    margin: 0;
+html {
     font-family: 'Roboto', sans-serif;
 }
 
+body {
+    padding-top: 70px; /* Adjust the value based on the height of your navbar */
+}
 .center {
     margin: auto;
     width: 50%;
@@ -40,7 +54,10 @@ html, body {
 
 .nav-item.active {
    color:white;
+}
 
+.nav-item.active img {
+    filter: brightness(0) invert(1);
 }
 
 #loginPage h1{

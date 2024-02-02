@@ -1,4 +1,5 @@
 let currentPage = null;
+
 let debouncedSetLights = debounce(setLights, 300); // Adjust delay as needed
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -126,7 +127,11 @@ function showPage(pageId) {
 
 function runScript(scriptName) {
   // Update the apiUrl with the new API endpoint and IP address
-  var apiUrl = `https://bennettolsen.us:5000/${scriptName}?password=${localStorage.getItem('password')}`;
+  let apiUrl = `https://bennettolsen.us:5000/${scriptName}?password=${localStorage.getItem('password')}`;
+
+  if(scriptName == "warm") {
+    apiUrl = `https://bennettolsen.us:5000/set_lights?password=${localStorage.getItem('password')}&r=224&g=233&b=40`;
+  }
 
   // Send a GET request to the updated API endpoint
   fetch(apiUrl)
@@ -156,8 +161,6 @@ function showLoginPage() {
   var loginPage = document.getElementById('loginPage');
   loginPage.style.display = 'block';
 }
-
-
 
 /////// Pokemon Code
 
@@ -201,6 +204,10 @@ function genPokedexEntry(pokemon) {
   let pokemonName = document.createElement('p');
   pokemonName.innerHTML = capitalizeFirstLetter(pokemon.name);
 
+  let colorBox1 = document.createElement('div');
+  //colorBox1.body.style = 
+  let colorBox2 = document.createElement('div');
+  let colorBox3 = document.createElement('div');
 
   pokedexEntry.appendChild(pokemonImg);
   pokedexEntry.appendChild(pokemonName);
