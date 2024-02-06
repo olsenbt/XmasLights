@@ -38,7 +38,6 @@
 }
 
 
-/* Disable scrolling*/
 html {
     font-family: 'Roboto', sans-serif;
 }
@@ -46,6 +45,7 @@ html {
 body {
     padding-top: 70px; /* Adjust the value based on the height of your navbar */
 }
+
 .center {
     margin: auto;
     width: 50%;
@@ -136,4 +136,20 @@ p {
 
 .card:hover {
     background-color: yellow;
+}
+
+#randomPokemon {
+    position:absolute;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    user-select: none;
+    padding: 10px;
+    border-radius: 10px;
+    height: 25px;
+    width: 25px;
+}
+
+#randomPokemon:hover {
+    background-color: #007bff; /* Change the color on hover as desired */
 }

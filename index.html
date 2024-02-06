@@ -32,9 +32,11 @@
 
 <body>
     <div id="topNav">
+        <input type="text" id="searchBar" placeholder="Search.." oninput="filterPokemon()">
         <div id="powerButton" class="center" onclick="runScript('stop')">
             <i class="fas fa-power-off"></i>
         </div>
+        <p id="randomPokemon" onclick="chooseRandomPokemon()">❓</p>
     </div>
 
     <div id="loginPage">
@@ -61,10 +63,7 @@
     </div>
 
     <div id="pokemonPage">
-        <div id="color1" class="color"></div>
-        <div id="color2" class="color"></div>
-        <div id="color3" class="color"></div>
-        <div id="pokedex"></div>
+        <div id="pokedex" class="grid"></div>
     </div>
 
     <div id="navbar">
