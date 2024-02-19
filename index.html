@@ -13,11 +13,12 @@
     <title>Xmas Light Controller</title>
 
     <!-- JS and CSS -->
-    <script src="index.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="js/index.js"></script>
+    <script src="js/pokemon.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 
     <!-- Color Wheel -->
-    <script src="iro.js"></script>
+    <script src="js/iro.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/iro.js@4.0.2/css/iro.min.css">
     <script src="https://cdn.jsdelivr.net/npm/iro.js@4.0.2/js/iro.min.js"></script>
 
@@ -53,17 +54,24 @@
             <div id="colorWheel"></div>
             <div id="darknessSlider"></div>
         </div>
-            <input type="text" id="colorPicker" readonly="" oninput="updateLights()" />
     </div>
 
     <div id="buttonsPage">
-        <button onclick="runScript('redgreen')" id="redgreenButton">Red Green ❤️💚</button>
+        <button onclick="runScript('red_green_static')" id="redgreenButton">Red Green ❤️💚</button>
         <button onclick="runScript('rainbow')" id="rainbowButton">Rainbow 🌈</button>
         <button onclick="runScript('warm')" id="warmButton">Warm 🕯️</button>
+        <button onclick="runScript('valentine')" id="valentineButton">Valentine 💘</button>
+        <button onclick="runScript('vertical')" id="verticalButton">Vertical ⬆️</button>
+        <button onclick="runScript('verticalRainbow')" id="verticalRainbow">Rainbow Stripes 🏳️‍🌈</button>
+        <button onclick="runScript('shimmer')" id="shimmer">Shimmer ✨</button>
     </div>
 
     <div id="pokemonPage">
         <div id="pokedex" class="grid"></div>
+    </div>
+
+    <div id="treePage">
+        <div id="tree" class="grid"></div>
     </div>
 
     <div id="navbar">
@@ -78,6 +86,10 @@
         <div class="nav-item" data-page="pokemonPage">
             <img src="assets/pokeball.png">
             <p>Pokemon</p>
+        </div>
+        <div class="nav-item" data-page="treePage">
+            <img src="assets/tree.png">
+            <p>Tree</p>
         </div>
     </div>
 </body>
