@@ -2,12 +2,13 @@
 
 #navbar {
     bottom: 0px;
+    padding-bottom: 10px;
 }
 
 #navbar, #topNav {
     position: fixed;
     width: 100%;
-    background-color: #ABABAB;
+    background-color: #8eb3a3;
     z-index: 1000;
     display: flex;
     flex-flow: row nowrap;
@@ -18,7 +19,8 @@
 }
 
 #topNav {
-    top: 0px;
+    height: 130px;
+    top: -70px;
 }
 
 .nav-item {
@@ -97,6 +99,7 @@ body {
 
 #powerButton {
     margin: auto;
+    margin-top: 90px;
     font-size: 40px;
     cursor: pointer;
     margin-bottom: 20px;
