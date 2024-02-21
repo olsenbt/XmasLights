@@ -350,7 +350,7 @@ function highlightSelectedPokemon(pokemonId) {
   // Highlight the current selected Pokémon button
   const selectedButton = document.getElementById(pokemonId);
   if (selectedButton) {
-    selectedButton.style.backgroundColor = '#ffcccb'; // Set the background color as desired
+    selectedButton.style.backgroundColor = '#3f7539'; // Set the background color as desired
     selectedPokemonId = pokemonId; // Update the selected Pokémon ID
   }
 }
