@@ -44,10 +44,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align:center;
+    text-align: center;
     padding-left: 25px;
     padding-right: 25px;
-    padding-top:10px;
+    padding-top: 10px;
 }
 
 .nav-item i, .nav-item img {
@@ -67,7 +67,8 @@ html {
 }
 
 body {
-    padding-top: 90px; /* Adjust the value based on the height of your navbar */
+    padding-top: 90px;
+    /* Adjust the value based on the height of your navbar */
     margin-left: 0px;
     height: 100%;
 
@@ -80,16 +81,16 @@ body {
 }
 
 .nav-item.active {
-   color:white;
+    color: white;
 }
 
 .nav-item.active img {
     filter: brightness(0) invert(1);
 }
 
-#loginPage h1{
-    padding-top:20px;
-    padding-bottom:10px;
+#loginPage h1 {
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 #buttonsPage {
@@ -102,7 +103,8 @@ body {
 #buttonsPage button {
     margin: 10px;
     padding: 10px 15px;
-    background-color: #4CAF50; /* Green background color */
+    background-color: #4CAF50;
+    /* Green background color */
     color: white;
     border: none;
     border-radius: 10px;
@@ -116,13 +118,35 @@ body {
     background-color: #2eacfa;
 }
 
+#powerDiv {
+    position: relative;
+    display: inline-block;
+    bottom: -50px;
+}
+
+#stopButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 55px;
+    width: 55px;
+    background-color: #abff7e;
+    border-radius: 50%;
+    border: 5px solid rgb(25, 101, 73);
+}
+
+#stopButton.activeButton {
+    background-color: #d8d8d8;
+}
+
 #powerButton {
-    display: flex;
-    justify-content: center; /* Centers horizontally */
-    width: 40px; /* Assuming your icon size is 40x40 pixels */
-    height: 40px; /* Assuming your icon size is 40x40 pixels */
+    position: relative;
     font-size: 40px;
-    margin-bottom: -100px;
+}
+
+#powerButton.activeButton {
+    color: white;
 }
 
 
@@ -160,7 +184,7 @@ p {
 .color {
     padding: 50px;
     width: 20%;
-    border-color:#333;
+    border-color: #333;
     border-style: solid;
 }
 
@@ -184,5 +208,6 @@ p {
 }
 
 #randomPokemon:hover {
-    background-color: #cbf7d2; /* Change the color on hover as desired */
+    background-color: #cbf7d2;
+    /* Change the color on hover as desired */
 }

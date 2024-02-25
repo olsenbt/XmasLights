@@ -43,8 +43,17 @@ document.addEventListener('DOMContentLoaded', function () {
   buttonsPage.forEach(function (button) {
     button.addEventListener("click", function () {
       clearActive();
+      let dot = document.getElementById('stopButton');
+      dot.classList.remove('activeButton');
       this.classList.add('activeButton');
     });
+  });
+
+  let powerButton = document.getElementById('powerButton');
+  powerButton.addEventListener("click", function () {
+    clearActive();
+    let dot = document.getElementById('stopButton');
+    dot.classList.add('activeButton');
   });
 
   // Load Pokemon Page
@@ -218,6 +227,8 @@ function showLoginPage() {
 }
 
 function clearActive() {
+  let dot = document.getElementById('stopButton');
+  dot.classList.remove('activeButton');
   let buttonsPage = document.getElementById('buttonsPage').querySelectorAll('button');
   buttonsPage.forEach(function (btn) {
     btn.classList.remove('activeButton');

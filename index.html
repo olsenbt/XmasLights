@@ -33,7 +33,11 @@
 <body>
     <div id="topNav">
         <input type="text" id="searchBar" placeholder="Search.." oninput="filterPokemon()">
-        <i id="powerButton" class="fas fa-power-off" onclick="runScript('stop')"></i>
+        <div id="powerDiv">
+            <span id="stopButton"></span>
+            <i id="powerButton" class="fas fa-power-off" onclick="runScript('stop')"></i>
+        </div>
+        
         <p id="randomPokemon" onclick="chooseRandomPokemon()">❓</p>
     </div>
 
