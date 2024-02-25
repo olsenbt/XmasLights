@@ -5,6 +5,29 @@ document.addEventListener('DOMContentLoaded', function () {
   currentPage = localStorage.getItem('password') ? document.getElementById('buttonsPage') : document.getElementById('loginPage');
   showPage(currentPage.id);
 
+  var apiUrl = 'https://bennettolsen.us:5000/status';
+
+  // Send a GET request to the updated API endpoint
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(result => {
+      console.log(result);
+      let currentButton = document.getElementById(result + 'Button');
+      if (currentButton) {
+        currentButton.classList.add('activeButton');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      alert(`Error executing Set Lights script: ${error.message}`);
+    });
+
+
   // Add event listener to login form
   var loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', function (event) {
@@ -12,6 +35,16 @@ document.addEventListener('DOMContentLoaded', function () {
     var password = document.getElementById('password').value;
     localStorage.setItem('password', password);
     showPage('buttonsPage');
+  });
+
+  //
+  let buttonsPage = document.getElementById('buttonsPage').querySelectorAll('button');
+
+  buttonsPage.forEach(function (button) {
+    button.addEventListener("click", function () {
+      clearActive();
+      this.classList.add('activeButton');
+    });
   });
 
   // Load Pokemon Page
@@ -23,16 +56,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.body.addEventListener('click', function (event) {
     // Check if the click event target is not the clear button or its descendant
-    if (currentPage == 'pokemonPage' && event.target !== randomButton 
-    && !randomButton.contains(event.target)) {
-      if(!event.target.closest(".card")) {
+    if (currentPage == 'pokemonPage' && event.target !== randomButton &&
+      !randomButton.contains(event.target)) {
+      if (!event.target.closest(".card")) {
         filterPokemon();
       }
     }
   });
-
-
-
 
   // Add event listeners to navigation buttons
   var buttons = document.querySelectorAll('.nav-item');
@@ -96,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function setLights(r, g, b) {
+  clearActive();
   // Update the apiUrl with the new API endpoint and IP address
   var apiUrl = `https://bennettolsen.us:5000/set_lights?password=${localStorage.getItem('password')}&r=${r}&g=${g}&b=${b}`;
 
@@ -154,7 +185,7 @@ function runScript(scriptName) {
   let apiUrl = `https://bennettolsen.us:5000/run_script?password=${localStorage.getItem('password')}&script=${scriptName}`;
 
   if (scriptName == "warm") {
-    apiUrl = `https://bennettolsen.us:5000/set_lights?password=${localStorage.getItem('password')}&r=224&g=233&b=40`;
+    apiUrl = `https://bennettolsen.us:5000/set_lights?password=${localStorage.getItem('password')}&r=215&g=185&b=50`; //185, 215, 50
   }
 
   // Send a GET request to the updated API endpoint
@@ -186,6 +217,12 @@ function showLoginPage() {
   loginPage.style.display = 'block';
 }
 
+function clearActive() {
+  let buttonsPage = document.getElementById('buttonsPage').querySelectorAll('button');
+  buttonsPage.forEach(function (btn) {
+    btn.classList.remove('activeButton');
+  });
+}
 
 // global variables
 let pokemonImgs = null; // Stores all pokemon images
@@ -275,6 +312,7 @@ function capitalizeFirstLetter(string) {
 }
 
 function handlePokemonClick(id) {
+  clearActive();
   // Remove the highlight from the previously selected Pokémon button
   highlightSelectedPokemon(null);
 
