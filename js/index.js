@@ -5,29 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
   currentPage = localStorage.getItem('password') ? document.getElementById('buttonsPage') : document.getElementById('loginPage');
   showPage(currentPage.id);
 
-  var apiUrl = 'https://bennettolsen.us:5000/status';
-
-  // Send a GET request to the updated API endpoint
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(result => {
-      console.log(result);
-      let currentButton = document.getElementById(result + 'Button');
-      if (currentButton) {
-        currentButton.classList.add('activeButton');
-      }
-    })
-    .catch(error => {
-      console.error(error);
-      alert(`Error executing Set Lights script: ${error.message}`);
-    });
-
-
   // Add event listener to login form
   var loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', function (event) {
@@ -132,6 +109,33 @@ document.addEventListener('DOMContentLoaded', function () {
   if (localStorage.getItem('password') == null) {
     showLoginPage();
   }
+
+  var apiUrl = 'https://bennettolsen.us:5000/status';
+
+  // Send a GET request to the updated API endpoint
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(result => {
+      console.log(result);
+      let currentButton = document.getElementById(result + 'Button');
+      if (currentButton) {
+        currentButton.classList.add('activeButton');
+      }
+      else if(result.charAt(0) == "{") {
+        let jsonResult = JSON.parse(result);
+        console.log("setting color wheel: " + jsonResult);
+        colorPicker.color.set(jsonResult);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      alert(`Error executing Set Lights script: ${error.message}`);
+    });
 });
 
 function setLights(r, g, b) {
