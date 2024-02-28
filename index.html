@@ -35,7 +35,7 @@
         <input type="text" id="searchBar" placeholder="Search.." oninput="filterPokemon()">
         <div id="powerDiv">
             <span id="stopButton"></span>
-            <i id="powerButton" class="fas fa-power-off" onclick="runScript('stop')"></i>
+            <i id="powerButton" class="fas fa-power-off"></i>
         </div>
         
         <p id="randomPokemon" onclick="chooseRandomPokemon()">❓</p>
@@ -80,15 +80,15 @@
 
     <div id="navbar">
         <div class="nav-item active" data-page="buttonsPage">
-            <i class="fas fa-cogs"></i>
-            <p>Buttons</p>
+            <img src="assets/buttonsPageEmpty.svg">
+            <p>Effects</p>
         </div>
         <div class="nav-item" data-page="colorSelectorPage">
-            <i class="fas fa-paint-brush"></i>
-            <p>Color Selector</p>
+            <img src="assets/colorSelectorPageEmpty.svg">
+            <p>Colors</p>
         </div>
         <div class="nav-item" data-page="pokemonPage">
-            <img src="assets/pokeball.png">
+            <img src="assets/pokemonPageEmpty.svg">
             <p>Pokemon</p>
         </div>
         <!-- Temp remove

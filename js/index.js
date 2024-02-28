@@ -28,9 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let powerButton = document.getElementById('powerButton');
   powerButton.addEventListener("click", function () {
-    clearActive();
-    let dot = document.getElementById('stopButton');
-    dot.classList.add('activeButton');
+    if (!document.getElementById("stopButton").classList.contains("activeButton")) {
+      runScript('stop');
+      clearActive();
+      let dot = document.getElementById('stopButton');
+      dot.classList.add('activeButton');
+    }
   });
 
   // Load Pokemon Page
@@ -56,8 +59,12 @@ document.addEventListener('DOMContentLoaded', function () {
     button.addEventListener('click', function () {
       // Reset color for all buttons
       buttons.forEach(function (otherButton) {
-        otherButton.classList.remove('active');
+        let otherPageValue = otherButton.getAttribute('data-page');
+        otherButton.querySelectorAll('img')[0].src = "assets/" + otherPageValue + "Empty.svg";
       });
+
+      let dataPageValue = this.getAttribute('data-page');
+      this.querySelectorAll('img')[0].src = "assets/" + dataPageValue + "Full.svg";
 
       // Set the clicked button to active
       this.classList.add('active');
@@ -125,8 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
       let currentButton = document.getElementById(result + 'Button');
       if (currentButton) {
         currentButton.classList.add('activeButton');
-      }
-      else if(result.charAt(0) == "{") {
+      } else if (result.charAt(0) == "{") {
         let jsonResult = JSON.parse(result);
         console.log("setting color wheel: " + jsonResult);
         colorPicker.color.set(jsonResult);
